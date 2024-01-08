@@ -1,24 +1,21 @@
-import java.util.HashMap;
 class Solution {
     public int solution(int[] array) {
-         HashMap<Integer, Integer> frequencyMap = new HashMap<>();
+        int[] frequency = new int[1000];
 
         // 각 숫자의 빈도 계산
         for (int num : array) {
-            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+            frequency[num]++;
         }
 
         int maxFrequency = 0;
         int answer = -1;
 
         // 최빈값 찾기
-        for (int key : frequencyMap.keySet()) {
-            int frequency = frequencyMap.get(key);
-
-            if (frequency > maxFrequency) {
-                maxFrequency = frequency;
-                answer = key;
-            } else if (frequency == maxFrequency) {
+        for (int i = 0; i < 1000; i++) {
+            if (frequency[i] > maxFrequency) {
+                maxFrequency = frequency[i];
+                answer = i;
+            } else if (frequency[i] == maxFrequency) {
                 answer = -1; // 최빈값이 여러 개인 경우
             }
         }
