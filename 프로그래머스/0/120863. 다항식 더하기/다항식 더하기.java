@@ -1,29 +1,33 @@
 class Solution {
     public String solution(String polynomial) {
-        String[] terms = polynomial.split(" \\+ "); // 항들을 분리
-        int xCoefficient = 0; // x의 계수
-        int constant = 0; // 상수항
+        int number = 0; // 상수항
+        int num = 0;    // 변수항
+        String[] arr = polynomial.split(" ");
 
-        for (String term : terms) {
-            if (term.contains("x")) {
-                // x 항 처리
-                term = term.replace("x", "").trim(); // 'x' 제거
-                xCoefficient += term.isEmpty() ? 1 : Integer.parseInt(term);
-            } else {
-                // 상수항 처리
-                constant += Integer.parseInt(term.trim());
+        for (String s : arr) {
+            if (!s.equals("+")) {
+                if (s.contains("x")) {
+                    // 'x' 항의 처리
+                    s = s.replace("x", "");
+                    num += s.isEmpty() ? 1 : Integer.parseInt(s);
+                } else {
+                    number += Integer.parseInt(s);
+                }
             }
         }
 
-        StringBuilder result = new StringBuilder();
-        if (xCoefficient != 0) {
-            result.append(xCoefficient == 1 ? "x" : xCoefficient + "x");
+        // 결과 형식 구성
+        String answer = "";
+        if (num > 0) {
+            answer = (num == 1) ? "x" : num + "x";
         }
-        if (constant != 0) {
-            if (result.length() > 0) result.append(" + ");
-            result.append(constant);
+        if (number > 0) {
+            if (!answer.isEmpty()) {
+                answer += " + ";
+            }
+            answer += number;
         }
 
-        return result.length() > 0 ? result.toString() : "0";
+        return answer.isEmpty() ? "0" : answer;
     }
 }
