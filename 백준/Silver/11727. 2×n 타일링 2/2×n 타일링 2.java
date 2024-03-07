@@ -1,21 +1,26 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt(); // n 입력 받기
-        int[] dp = new int[1001]; // n의 최댓값 + 1 크기의 배열 선언
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        // 초기 조건 설정
+        int n = Integer.parseInt(br.readLine());
+        int[] dp = new int[Math.max(n + 1, 3)]; // n이 1 또는 2일 수 있으므로, 배열 크기를 적어도 3으로 설정
+
         dp[1] = 1;
         dp[2] = 3;
 
-        // dp[n]을 구하기 위한 반복문 실행
         for (int i = 3; i <= n; i++) {
-            dp[i] = (dp[i-1] + 2*dp[i-2]) % 10007;
+            dp[i] = (dp[i - 1] + 2 * dp[i - 2]) % 10007;
         }
 
-        // 결과 출력
-        System.out.println(dp[n]);
+        bw.write(dp[n] + "\n");
+        bw.flush(); // 버퍼의 내용을 출력
+        bw.close(); // 버퍼 닫기
     }
 }
