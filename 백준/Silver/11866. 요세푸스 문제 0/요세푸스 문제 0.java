@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -11,26 +10,23 @@ public class Main {
         int N = Integer.parseInt(inputs[0]);
         int K = Integer.parseInt(inputs[1]);
 
-        Queue<Integer> queue = new LinkedList<>();
+        LinkedList<Integer> list = new LinkedList<>();
         for (int i = 1; i <= N; i++) {
-            queue.offer(i);
+            list.add(i);
         }
 
         StringBuilder sb = new StringBuilder();
         sb.append('<');
 
-        while (!queue.isEmpty()) {
-            for (int i = 0; i < K - 1; i++) {
-                int val = queue.poll();
-                queue.offer(val);
-            }
-            sb.append(queue.poll());
-            if (!queue.isEmpty()) {
-                sb.append(", ");
-            }
+        int index = 0;
+        while (!list.isEmpty()) {
+            index = (index + K - 1) % list.size();
+            sb.append(list.remove(index)).append(", ");
         }
 
+        sb.delete(sb.length() - 2, sb.length());
         sb.append('>');
+
         System.out.println(sb.toString());
     }
 }
