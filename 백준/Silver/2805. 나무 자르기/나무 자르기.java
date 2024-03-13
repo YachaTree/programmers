@@ -11,22 +11,24 @@ public class Main {
         
         long[] trees = new long[N];
         st = new StringTokenizer(br.readLine());
+        long max = 0; // 나무의 최대 높이를 저장할 변수
         for (int i = 0; i < N; i++) {
             trees[i] = Long.parseLong(st.nextToken());
+            if (trees[i] > max) {
+                max = trees[i]; // 나무의 최대 높이 갱신
+            }
         }
 
-        Arrays.sort(trees);
-
         long low = 0;
-        long high = trees[N - 1];
+        long high = max; // 나무 중 가장 높은 나무의 높이로 초기화
         long answer = 0;
 
         while (low <= high) {
             long mid = (low + high) / 2;
             long sum = 0;
-            for (int i = 0; i < N; i++) {
-                if (trees[i] > mid) {
-                    sum += (trees[i] - mid);
+            for (long tree : trees) {
+                if (tree > mid) {
+                    sum += (tree - mid);
                 }
             }
             if (sum < M) {
