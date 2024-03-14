@@ -1,26 +1,27 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        Set<String> words = new TreeSet<>((word1, word2) -> {
-            if (word1.length() == word2.length()) {
-                return word1.compareTo(word2);
-            } else {
-                return Integer.compare(word1.length(), word2.length());
-            }
-        });
-
+        String[] words = new String[N];
         for (int i = 0; i < N; i++) {
-            words.add(br.readLine());
+            words[i] = br.readLine();
         }
 
-        words.forEach(System.out::println);
+        Arrays.sort(words, (w1, w2) -> w1.length() == w2.length() ? w1.compareTo(w2) : w1.length() - w2.length());
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < N; i++) {
+            if (i == 0 || !words[i].equals(words[i - 1])) {
+                sb.append(words[i]).append('\n');
+            }
+        }
+
+        System.out.print(sb.toString());
     }
 }
