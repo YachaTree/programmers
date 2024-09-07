@@ -4,24 +4,29 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line;
-        while ((line = reader.readLine()) != null) {
+
+        while ((line = br.readLine()) != null) {
+
             if (line.equals("#")) {
                 break;
             }
 
-            char targetChar = line.charAt(0);
-            String sentence = line.substring(2);
-            
+            String[] parts = line.split(" ", 2);
+            char targetChar = parts[0].charAt(0);  
+            String sentence = parts[1];           
+
+            targetChar = Character.toLowerCase(targetChar);
+            sentence = sentence.toLowerCase();
+
             int count = 0;
-            for (char c : sentence.toCharArray()) {
-                if (Character.toLowerCase(c) == Character.toLowerCase(targetChar)) {
+            for (int i = 0; i < sentence.length(); i++) {
+                if (sentence.charAt(i) == targetChar) {
                     count++;
                 }
             }
-            
+
             System.out.println(targetChar + " " + count);
         }
     }
